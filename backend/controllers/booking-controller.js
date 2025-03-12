@@ -17,7 +17,7 @@ export const newBooking = async (req, res, next) => {
   if (!existingMovie) {
     return res.status(404).json({ message: "Movie Not Found With Given ID" });
   }
-  if (!existingUser) {
+  if (!user) {
     return res.status(404).json({ message: "User not found with given ID " });
   }
   let booking;
@@ -66,7 +66,7 @@ export const deleteBooking = async (req, res, next) => {
   const id = req.params.id;
   let booking;
   try {
-    booking = await Bookings.findByIdAndDelete(id).populate("user movie");
+    booking = await Bookings.findByIdAndRemove(id).populate("user movie");
     console.log(booking);
     const session = await mongoose.startSession();
     session.startTransaction();
