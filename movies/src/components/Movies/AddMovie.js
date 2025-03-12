@@ -87,7 +87,7 @@ const AddMovie = () => {
             <TextField
               value={actor}
               name="actor"
-              onClick={(e) => setActor(e.target.value)}
+              onChange={(e) => setActor(e.target.value)}
               variant="standard"
               margin="normal"
             />
