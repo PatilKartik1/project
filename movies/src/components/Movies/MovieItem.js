@@ -4,6 +4,7 @@ import {
   CardActions,
   CardContent,
   Typography,
+  Box
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -13,20 +14,33 @@ const MovieItem = ({ title, releaseDate, posterUrl, id }) => {
     <Card
       sx={{
         margin: 2,
-        width: 250,
-        height: 320,
-        borderRadius: 5,
-        ":hover": {
-          boxShadow: "10px 10px 20px #ccc",
+        width: 260,
+        height: 380,
+        borderRadius: 3,
+        overflow: "hidden",
+        transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+        "&:hover": {
+          transform: "scale(1.05)",
+          boxShadow: "0px 10px 30px rgba(255, 215, 0, 0.6)",
         },
+        bgcolor: "#1c1c1c",
+        color: "#fff",
       }}
     >
-      <img height={"50%"} width="100%" src={posterUrl} alt={title} />
+      <Box height="50%" overflow="hidden">
+        <img
+          height="100%"
+          width="100%"
+          src={posterUrl}
+          alt={title}
+          style={{ objectFit: "cover" }}
+        />
+      </Box>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom variant="h6" fontWeight="bold" color="#FFD700">
           {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="gray">
           {new Date(releaseDate).toDateString()}
         </Typography>
       </CardContent>
@@ -35,17 +49,18 @@ const MovieItem = ({ title, releaseDate, posterUrl, id }) => {
           variant="contained"
           fullWidth
           LinkComponent={Link}
-          to={`/booking/${id}`}
+          to={`/Booking/${id}`}
           sx={{
-            margin: "auto",
-            bgcolor: "#2b2d42",
-            ":hover": {
-              bgcolor: "#121217",
+            bgcolor: "#FFD700",
+            color: "#000",
+            fontWeight: "bold",
+            "&:hover": {
+              bgcolor: "#FFC107",
             },
           }}
-          size="small"
+          size="medium"
         >
-          Book
+          Book Now
         </Button>
       </CardActions>
     </Card>

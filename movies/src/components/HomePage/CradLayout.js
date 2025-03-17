@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CradLayout = ({ title, description, releaseDate, posterUrl, id }) => {
+const CardLayout = ({ title, description, releaseDate, posterUrl, id }) => {
   return (
     <Card
       sx={{
@@ -21,14 +21,12 @@ const CradLayout = ({ title, description, releaseDate, posterUrl, id }) => {
       }}
     >
       <img
-        component="img"
-        height="50%"
-        width="100%"
+        style={{ height: "50%", width: "100%", objectFit: "cover" }}
         src={posterUrl}
         alt={title}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom variant="h5">
           {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -37,16 +35,14 @@ const CradLayout = ({ title, description, releaseDate, posterUrl, id }) => {
       </CardContent>
       <CardActions>
         <Button
-          LinkComponent={Link}
+          component={Link}
           to={`/booking/${id}`}
           fullWidth
           variant="contained"
           sx={{
             margin: "auto",
             bgcolor: "#2b2d42",
-            ":hover": {
-              bgcolor: "#121217",
-            },
+            ":hover": { bgcolor: "#121217" },
             borderRadius: 5,
           }}
         >
@@ -57,4 +53,4 @@ const CradLayout = ({ title, description, releaseDate, posterUrl, id }) => {
   );
 };
 
-export default CradLayout;
+export default CardLayout;

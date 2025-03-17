@@ -6,53 +6,99 @@ import MovieItem from "./Movies/MovieItem";
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
+
   useEffect(() => {
     getAllMovies()
       .then((data) => setMovies(data.movies))
       .catch((err) => console.log(err));
   }, []);
+
   return (
-    <Box width={"100%"} height="100%" margin="auto" marginTop={2}>
-      <Box margin={"auto"} width="80%" height={"40vh"} padding={2}>
-        <img
-          src="https://i.ytimg.com/vi/bweRG6WueuM/maxresdefault.jpg"
-          alt="Brahmastra"
-          width={"100%"}
-          height={"100%"}
-        />
+    <Box width="100%" minHeight="100vh" bgcolor="#000" color="#fff">
+      {/* Hero Section */}
+      <Box
+        width="100%"
+        height="50vh"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        sx={{
+          backgroundImage:
+            "url('https://i.ytimg.com/vi/bweRG6WueuM/maxresdefault.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          position: "relative",
+        }}
+      >
+        <Box
+          position="absolute"
+          top={0}
+          left={0}
+          width="100%"
+          height="100%"
+          bgcolor="rgba(0, 0, 0, 0.6)"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          flexDirection="column"
+        >
+          <Typography variant="h3" fontWeight="bold" color="#FFD700">
+            Experience Movies Like Never Before
+          </Typography>
+          <Button
+            LinkComponent={Link}
+            to="/movies"
+            variant="contained"
+            sx={{
+              mt: 2,
+              bgcolor: "#FFD700",
+              color: "#000",
+              fontWeight: "bold",
+              '&:hover': { bgcolor: "#FFC107" },
+            }}
+          >
+            Book Your Tickets Now
+          </Button>
+        </Box>
       </Box>
-      <Box padding={5} margin="auto">
-        <Typography variant="h4" textAlign={"center"}>
+      
+      {/* Latest Releases */}
+      <Box padding={5} textAlign="center">
+        <Typography variant="h4" fontWeight="bold" color="#FFD700">
           Latest Releases
         </Typography>
       </Box>
       <Box
-        margin={"auto"}
         display="flex"
-        width="80%"
-        justifyContent={"center"}
-        alignItems="center"
         flexWrap="wrap"
+        justifyContent="center"
+        gap={3}
+        padding={3}
       >
         {movies &&
-          movies
-            .slice(0, 4)
-            .map((movie, index) => (
-              <MovieItem
-                id={movie.id}
-                title={movie.title}
-                posterUrl={movie.posterUrl}
-                releaseDate={movie.releaseDate}
-                key={index}
-              />
-            ))}
+          movies.slice(0, 4).map((movie) => (
+            <MovieItem
+              key={movie.id}
+              id={movie.id}
+              title={movie.title}
+              posterUrl={movie.posterUrl}
+              releaseDate={movie.releaseDate}
+            />
+          ))}
       </Box>
-      <Box display="flex" padding={5} margin="auto">
+      
+      {/* View All Movies Button */}
+      <Box display="flex" justifyContent="center" padding={5}>
         <Button
           LinkComponent={Link}
           to="/movies"
           variant="outlined"
-          sx={{ margin: "auto", color: "#2b2d42" }}
+          sx={{
+            color: "#FFD700",
+            borderColor: "#FFD700",
+            fontWeight: "bold",
+            '&:hover': { bgcolor: "#FFD700", color: "#000" },
+          }}
         >
           View All Movies
         </Button>

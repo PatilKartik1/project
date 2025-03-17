@@ -11,25 +11,27 @@ const Movies = () => {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <Box margin={"auto"} marginTop={4}>
+    <Box margin="auto" marginTop={4} textAlign="center">
       <Typography
-        margin={"auto"}
+        margin="auto"
         variant="h4"
         padding={2}
-        width="40%"
-        bgcolor={"#900C3F"}
-        color="white"
-        textAlign={"center"}
+        width="fit-content"
+        bgcolor="#1c1c1c"
+        color="#FFD700"
+        borderRadius={2}
+        boxShadow="0px 5px 15px rgba(255, 215, 0, 0.4)"
       >
         All Movies
       </Typography>
       <Box
-        width={"100%"}
+        width="90%"
         margin="auto"
         marginTop={5}
-        display={"flex"}
-        justifyContent="flex-start"
-        flexWrap={"wrap"}
+        display="grid"
+        gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))"
+        gap={3}
+        justifyContent="center"
       >
         {movies &&
           movies.map((movie, index) => (

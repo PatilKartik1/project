@@ -26,4 +26,5 @@ mongoose
       console.log("Connected To Database And Server is running")
     )
   )
+
   .catch((e) => console.log(e));

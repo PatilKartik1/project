@@ -5,95 +5,131 @@ import { useParams } from "react-router-dom";
 import { getMovieDetails, newBooking } from "../../api-helpers/api-helpers";
 
 const Booking = () => {
-  const [movie, setMovie] = useState();
+  const [movie, setMovie] = useState(null);
   const [inputs, setInputs] = useState({ seatNumber: "", date: "" });
-  const id = useParams().id;
-  console.log(id);
+  const { id } = useParams();
 
   useEffect(() => {
     getMovieDetails(id)
       .then((res) => setMovie(res.movie))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }, [id]);
+
   const handleChange = (e) => {
-    setInputs((prevState) => ({
-      ...prevState,
+    setInputs((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
     }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputs);
+    if (!movie) return;
+
     newBooking({ ...inputs, movie: movie._id })
       .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
+
   return (
-    <div>
+    <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh", padding: "20px" }}>
       {movie && (
         <Fragment>
           <Typography
             padding={3}
-            fontFamily="fantasy"
+            fontFamily="Arial, sans-serif"
+            fontWeight="bold"
             variant="h4"
-            textAlign={"center"}
+            textAlign="center"
+            color="#2b2d42"
           >
-            Book TIckets Of Movie: {movie.title}
+            🎟️ Book Tickets for: {movie.title}
           </Typography>
-          <Box display={"flex"} justifyContent={"center"}>
+
+          <Box display="flex" justifyContent="center">
+            {/* Left Section: Movie Details */}
             <Box
-              display={"flex"}
-              justifyContent={"column"}
+              display="flex"
               flexDirection="column"
-              paddingTop={3}
-              width="50%"
-              marginRight={"auto"}
+              alignItems="center"
+              padding={3}
+              width="45%"
+              backgroundColor="#fff"
+              borderRadius={5}
+              boxShadow="5px 5px 15px rgba(0, 0, 0, 0.1)"
             >
               <img
                 width="80%"
-                height={"300px"}
+                height="300px"
                 src={movie.posterUrl}
                 alt={movie.title}
+                style={{ borderRadius: "10px" }}
               />
-              <Box width={"80%"} marginTop={3} padding={2}>
-                <Typography paddingTop={2}>{movie.description}</Typography>
-                <Typography fontWeight={"bold"} marginTop={1}>
-                  Starrer:
-                  {movie.actors.map((actor) => " " + actor + " ")}
+              <Box width="80%" marginTop={3} padding={2} textAlign="center">
+                <Typography paddingTop={2} fontSize="1.1rem" color="#555">
+                  {movie.description}
                 </Typography>
-                <Typography fontWeight={"bold"} marginTop={1}>
-                  Release Date: {new Date(movie.releaseDate).toDateString()}
+                <Typography fontWeight="bold" marginTop={2} color="#2b2d42">
+                  🎭 Starring: {movie.actors.join(", ")}
+                </Typography>
+                <Typography fontWeight="bold" marginTop={1} color="#d90429">
+                  📅 Release Date: {new Date(movie.releaseDate).toDateString()}
                 </Typography>
               </Box>
             </Box>
-            <Box width={"50%"} paddingTop={3}>
+
+            {/* Right Section: Booking Form */}
+            <Box
+              width="40%"
+              padding={4}
+              marginLeft={3}
+              backgroundColor="#fff"
+              borderRadius={5}
+              boxShadow="5px 5px 15px rgba(0, 0, 0, 0.1)"
+            >
               <form onSubmit={handleSubmit}>
-                <Box
-                  padding={5}
-                  margin={"auto"}
-                  display="flex"
-                  flexDirection={"column"}
-                >
-                  <FormLabel>Seat Number</FormLabel>
+                <Typography textAlign="center" variant="h5" color="#2b2d42" fontWeight="bold">
+                  🎫 Secure Your Seats
+                </Typography>
+
+                <Box padding={3} display="flex" flexDirection="column">
+                  <FormLabel sx={{ fontWeight: "bold", color: "#2b2d42" }}>Seat Number</FormLabel>
                   <TextField
                     name="seatNumber"
                     value={inputs.seatNumber}
                     onChange={handleChange}
-                    type={"number"}
+                    type="number"
                     margin="normal"
-                    variant="standard"
+                    variant="outlined"
+                    fullWidth
                   />
-                  <FormLabel>Booking Date</FormLabel>
+
+                  <FormLabel sx={{ fontWeight: "bold", color: "#2b2d42" }}>Booking Date</FormLabel>
                   <TextField
                     name="date"
-                    type={"date"}
+                    type="date"
                     margin="normal"
-                    variant="standard"
+                    variant="outlined"
                     value={inputs.date}
                     onChange={handleChange}
+                    fullWidth
                   />
-                  <Button type="submit" sx={{ mt: 3 }}>
-                    Book Now
+
+                  <Button
+                    type="submit"
+                    sx={{
+                      mt: 3,
+                      bgcolor: "#2b2d42",
+                      color: "white",
+                      padding: "10px",
+                      borderRadius: 2,
+                      fontSize: "1rem",
+                      ":hover": { bgcolor: "#121217" },
+                    }}
+                    variant="contained"
+                    fullWidth
+                  >
+                    🎟️ Book Now
                   </Button>
                 </Box>
               </form>
