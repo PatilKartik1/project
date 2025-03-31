@@ -104,9 +104,9 @@ const UserProfile = () => {
                   >
                     <ListItemText
                       primary={`🎬 ${booking.movie.title}`}
-                      secondary={`Seat: ${booking.seatNumber} | Date: ${new Date(
-                        booking.date
-                      ).toDateString()}`}
+                      secondary={`Seat: ${
+                        booking.seatNumber
+                      } | Date: ${new Date(booking.date).toDateString()}`}
                       sx={{ flex: 1 }}
                     />
                     <IconButton
